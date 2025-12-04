@@ -13,13 +13,13 @@
 
 **구조적 특이성 검증 :** 원본 네트워크와 네 가지 랜덤 네트워크 모델(**Erdős–Rényi(ER), Configuration, Chung-Lu, Barabási–Albert(BA)**)의 앙상블 평균을 비교하여, 우간다 네트워크의 구조가 **우연히** 발생했는지, 아니면 **특정 메커니즘**으로 형성되었는지 분석합니다.
 
-**코드 모듈화 :** 모든 코드를 일정 형태에서 재사용 가능한 Python 패키지(**`network_pkg`**) 형태로 구현합니다.
+**코드 모듈화 :** 모든 코드를 일정 형태에서 재사용 가능한 Python 패키지(**`network_tool_pkg`**) 형태로 구현합니다.
 
 ---
 
 ## 📂 (2) 프로젝트 구조 (Package Map)
 
-본 프로젝트는 기능적 분리를 위해 **`network_pkg`** 메인 패키지 아래에 
+본 프로젝트는 기능적 분리를 위해 **`network_tool_pkg`** 메인 패키지 아래에 
 **`utils`**
 와 **`analysis`** 두 서브 패키지를 가집니다.
 
@@ -29,12 +29,12 @@
 
 ## 🛠️ (3) 핵심 구현 클래스 및 모델
 
-## A. `CentralityCalculator` (in `centrality.py`)
+## A. `CentralityCalculator` (in `centrality_generator.py`)
 
 * **역할:** 그래프 $G$를 인스턴스로 받아, **직접 구현된** 5가지 중심성 지표 값을 계산합니다.
 * **구현 지표:** Degree, Closeness, Harmonic, Betweenness, Eigenvector(Matrix).
 
-## B. `RandomNetGenerator` (in `random_nets.py`)
+## B. `RandomNetGenerator` (in `random_nets_generator.py`)
 
 * **역할:** 입력받은 $N$과 $k$를 기반으로 네 가지 무작위 네트워크 모델을 생성합니다.
 * **구현 모델:**
