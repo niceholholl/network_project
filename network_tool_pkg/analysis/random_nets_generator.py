@@ -121,14 +121,38 @@ class RandomNetGenerator:
     # ---------- MultiGraph로 생성한 configuraion 모델을 simple graph로 변경 ----------
 
     return nx.Graph(G_config)
-
+    
   # ====================================================================
   # 3. Chung-Lu Model 구현
   # ====================================================================
-    
-  # def create_chunglu_net(self) 
+  
+  def create_chunglu_net(self) :
 
+    degree_sequence = self.degrees
+    n = len(degree_sequence)
 
+    G_chu = nx.Graph()
+    G_chu.add_nodes_from(range(n))
+
+    total_degree = sum(degree_sequence)
+
+    if total_degree == 0 :
+      raise ValueError('데이터 오류입니다. 올바른 네트워크를 사용하세요.)
+                       
+    for i in range(n) :
+      for j in range(i+1, n) :
+        p_ij = (degree_sequence[i] * degree_sequence[j]) / total_degree
+
+        if p_ij > 1 :
+          p_ij = (degree_sequence[i] * degree_sequence[j]) / (max(degree_sequence) ** 2)
+
+        p_ij = max(0, min(1, p_ij))
+
+        if random.random() < p_ij :
+          G_chu.add_edge(i, j)
+
+    return G_chu
+  
   # ====================================================================
   # 4. BA Model 구현
   # ====================================================================
