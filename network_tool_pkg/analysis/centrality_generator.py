@@ -125,28 +125,29 @@ class CentralityCalculator :
     if N <= 2 :
       raise ValueError('betweenness centrality를 계산할 수 없습니다. 네트워크의 노드가 3개 이상이어야 합니다. 현재 노드 수 = {}'.format(N))
 
-    try :
-      for source in nodes :
-        for target in nodes :
-          if source == target :
-            continue
 
+    for source in nodes :
+      for target in nodes :
+        if source == target :
+          continue
+
+        try :
           paths = list(nx.all_shortest_paths(self.G, source, target))
+          
+        except nx.NetworkXNoPath :
+          # all_shortest_paths 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
+          print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 betweenness_centrality 내장 함수를 사용합니다')
+          return nx.betweenness_centrality(self.G)
 
-          if not paths :
-            continue
+        if not paths :
+          continue
 
-          for path in paths :
-            for n in path[1:-1]:
-              b_cen[n] += 1/len(paths)
+        for path in paths :
+          for n in path[1:-1]:
+            b_cen[n] += 1/len(paths)
 
-      for node in nodes :
+    for node in nodes :
           b_cen[node] *= normalizer
-
-    except nx.NetworkXNoPath :
-      # all_shortest_paths 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 betweenness_centrality 내장 함수를 사용합니다')
-      return nx.betweenness_centrality(self.G)
 
     return b_cen
 
