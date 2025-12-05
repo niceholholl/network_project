@@ -58,19 +58,26 @@ class CentralityCalculator :
   def calculate_closeness_centrality(self) :
 
     N = self.N
-    shortdic = dict(nx.shortest_path(self.G))
     c_cen = {}
     dist = 0
 
     if N <= 1 :
       raise ValueError('closeness centrality를 계산할 수 없습니다. 네트워크의 노드가 2개 이상이어야 합니다. 현재 노드 수 = {}'.format(N))
-    
-    for n in self.G.nodes() :
-      for m in self.G.nodes() :
-        dist += (len(shortdic[n][m])) - 1
 
-      c_cen[n] = ((N-1)/dist)
-      dist = 0
+    try :
+      shortdic = dict(nx.shortest_path(self.G))
+      
+      for n in self.G.nodes() :
+        for m in self.G.nodes() :
+          dist += (len(shortdic[n][m])) - 1
+
+        c_cen[n] = ((N-1)/dist)
+        dist = 0
+        
+    except nx.NetworkXNoPath : 
+      # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
+      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 closeness_centrality 내장 함수를 사용합니다')
+      return nx.closeness_centrality(self.G)
 
     return c_cen
 
@@ -79,24 +86,31 @@ class CentralityCalculator :
   def calculate_harmonic_centrality(self) :
 
     N = self.N
-    shortdic = dict(nx.shortest_path(G))
     h_cen = {}
 
     if N <= 1 :
       raise ValueError('harmonic centrality를 계산할 수 없습니다. 네트워크의 노드가 2개 이상이어야 합니다. 현재 노드 수 = {}'.format(N))
 
-    for n in self.G.nodes() :
-      h_sum = 0
+    try : 
+      shortdic = dict(nx.shortest_path(self.G))
+      
+      for n in self.G.nodes() :
+        h_sum = 0
 
-      for m in self.G.nodes() :
-        if n != m and m in shortdic[n] :
-          dist = len(shortdic[n][m]) - 1
+        for m in self.G.nodes() :
+          if n != m and m in shortdic[n] :
+            dist = len(shortdic[n][m]) - 1
 
-          if dist > 0 :
-            h_sum += 1/dist
+            if dist > 0 :
+              h_sum += 1/dist
 
-      h_cen[n] = (h_sum/(N-1))
+        h_cen[n] = (h_sum/(N-1))
 
+    except nx.NetworkXNoPath :
+      # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
+      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 harmonic_centrality 내장 함수를 사용합니다')
+      return nx.harmonic_centrality(self.G)
+      
     return h_cen
 
   # ---------- Betweenness Centrality ----------
@@ -105,30 +119,36 @@ class CentralityCalculator :
 
     N = self.N
     nodes = self.nodes
-    b_cen = {n : 0 for n in nodes}
+    normalizer = 1/((N-1)*(N-2))
+    b_cen = {n : 0 for n in nodes}    
 
     if N <= 2 :
       raise ValueError('betweenness centrality를 계산할 수 없습니다. 네트워크의 노드가 3개 이상이어야 합니다. 현재 노드 수 = {}'.format(N))
 
-    for source in nodes :
-      for target in nodes :
-        if source == target :
-          continue
+    try :
+      for source in nodes :
+        for target in nodes :
+          if source == target :
+            continue
 
-        paths = list(nx.all_shortest_paths(self.G, source, target))
+          paths = list(nx.all_shortest_paths(self.G, source, target))
 
-        if not paths :
-          continue
+          if not paths :
+            continue
 
-        for path in paths :
-          for n in path[1:-1]:
-            b_cen[n] += 1/len(paths)
+          for path in paths :
+            for n in path[1:-1]:
+              b_cen[n] += 1/len(paths)
 
-      normalizer = 1/((N-1)*(N-2))
       for node in nodes :
-        b_cen[node] *= normalizer
+          b_cen[node] *= normalizer
 
-      return b_cen
+    except nx.NetworkXNoPath :
+      # all_shortest_paths 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
+      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 betweenness_centrality 내장 함수를 사용합니다')
+      return nx.betweenness_centrality(self.G)
+
+    return b_cen
 
   # ---------- Eigenvector Centrality ----------
 
