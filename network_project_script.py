@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 # 데이터 전처리 함수
 from network_tool_pkg.utils.preprocessing import preprocess_network
 from network_tool_pkg.utils.degree_utils import create_degree_sequence, preprocess_stub
+from network_tool_pkg.utils.average_utils import average_centrality
 
 # 중심성 및 랜덤 모델 생성 클래스
 from network_tool_pkg.analysis.centrality_generator import CentralityCalculator
@@ -19,7 +20,7 @@ from network_tool_pkg.analysis.radom_nets_generator import RandomNetGenerator
 # 🚨 파일 로드 경로 (Google Drive 경로의 Collab 환경 가정)
 # FILE_PATH = '/content/drive/MyDrive/data/friendship/6'
 
-# 🚨 원본 네트워크 로드 (load_network_from_file 함수를 통해 data를 network 형태로 변경 ~ data_loader.py 참조)
+# 🚨 원본 네트워크 로드 (load_network_from_file 함수를 통해 data를 network 형태로 변경 ~ data_loader_script.py 참조)
 # G_original = load_network_from_file(FILE_PATH)
 
 # 테스트 및 예시를 위해 karate club network의 데이터를 G_original에 할당
@@ -101,7 +102,7 @@ for i in range(NUM_SIMULATIONS) :
   cf_btw_list.append(calc_cf.calculate_betweenness_centrality())
   cl_btw_list.append(calc_cl.calculate_betweenness_centrality())
 
-  # Betweenness Centrality 계산 및 저장
+  # Closeness Centrality 계산 및 저장
   er_cls_list.append(calc_er.calculate_closeness_centrality())
   cf_cls_list.append(calc_cf.calculate_closeness_centrality())
   cl_cls_list.append(calc_cl.calculate_closeness_centrality())
@@ -110,9 +111,24 @@ print('----- {}회 앙상블 시뮬레이션 완료 -----'.format(NUM_SIMULATION
 print('----- 3단계 : 원본 분포 계산 및 무작위 앙상블 생성이 완료되었습니다 -----')
 
 # ====================================================================
-# 4. 중심성 지표 비교
+# 4. 중심성 지표 비교 (평균화 작업)
 # ====================================================================
 
+nodes_sorted = sorted(G_project.nodes())
+
+# Betweenness Centrality 평균화
+original_btw_sorted = np.array([original_btw[n] for n in nodes_sorted])
+avg_er_btw = average_centrality(er_btw_list)
+avg_cf_btw = average_centrality(cf_btw_list)
+avg_cl_btw = average_centrality(cl_btw_list)
+
+# Closeness Centrality 평균화
+original_cls_sorted = np.array([original_cls[n] for n in nodes_sorted])
+avg_er_cls = average_centrality(er_cls_list)
+avg_cf_cls = average_centrality(cf_cls_list)
+avg_cl_cls = average_centrality(cl_cls_list)
+
+print('----- 4단계 : 중심성 지표 비교를 위한 앙상블 평균화가 완료되었습니다 -----')
 
 # ====================================================================
 # 5. 시각화
