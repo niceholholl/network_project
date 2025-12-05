@@ -122,15 +122,33 @@ for i in range(NUM_SIMULATIONS) :
   cf_cls_list.append(calc_cf.calculate_closeness_centrality())
   cl_cls_list.append(calc_cl.calculate_closeness_centrality())
 
-  # 전역 지표 계산 및 저장
-  er_global_list.append(calculate_global(G_er))
-  cf_global_list.append(calculate_global(G_cf))
-  cl_global_list.append(calculate_global(G_cl))
-
   # degree 저장
   er_degree_list.append([d for _, d in G_er.degree()])
   cf_degree_list.append([d for _, d in G_cf.degree()])
   cl_degree_list.append([d for _, d in G_cl.degree()])
+
+  # 전역 지표 계산 및 저장
+  # 🚨 예외 처리로 disconnected 체크 및 해당 인덱스 출력
+  # 🚨 랜덤 모델 일부 네트워크가 disconnected 되면 일부 전역 지표(APL, DIAM) 계산 불가
+  # 🚨 이 값들을 None으로 채우고, 지표의 평균 및 분포 계산시 결과가 흔들릴 수 있음
+  
+  try :
+    er_global_list.append(calculate_global(G_er))
+  except ValueError :
+    print('[경고] {}번째 ER 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    er_global_list.append({'CC': nx.average_clustering(G_er), 'APL': None, 'DIAM': None})
+
+  try :
+    cf_global_list.append(calculate_global(G_cf))
+  except ValueError :
+    print('[경고] {}번째 Configuration 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    cf_global_list.append({'CC': nx.average_clustering(G_cf), 'APL': None, 'DIAM': None})
+
+  try :
+    cl_global_list.append(calculate_global(G_cl))
+  except ValueError :
+    print('[경고] {}번째 Chung-Lu 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    cl_global_list.append({'CC': nx.average_clustering(G_cl), 'APL': None, 'DIAM': None})
 
 print('----- {}회 앙상블 시뮬레이션 완료 -----'.format(NUM_SIMULATIONS))
 print('----- 3단계 : 원본 분포 계산 및 무작위 앙상블 생성이 완료되었습니다 -----')
