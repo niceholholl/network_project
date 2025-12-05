@@ -9,13 +9,13 @@ from network_tool_pkg.utils.preprocessing import preprocess_network
 from network_tool_pkg.utils.degree_utils import create_degree_sequence, preprocess_stub
 from network_tool_pkg.utils.average_utils import ensemble_average
 from network_tool_pkg.utils.global_utils import calculate_global
-from network_tool_pkg.utils.plot_utils import plot_degree_hist
+from network_tool_pkg.utils.plot_utils import plot_degree_hist, average_hist
 
 # 중심성 및 랜덤 모델 생성 클래스
 from network_tool_pkg.analysis.centrality_generator import CentralityCalculator
 from network_tool_pkg.analysis.random_nets_generator import RandomNetGenerator
 
-# 데이터 로더
+# 데이터 로더 (사용 시 주석 해제)
 # from data_loader_script import load_network_from_file
 
 # ====================================================================
@@ -162,5 +162,19 @@ print('----- 5단계 : 전역 지표 비교를 위한 계산이 완료되었습�
 # ====================================================================
 # 6. 시각화
 # ====================================================================
+
+# ---------- 원본 네트워크 vs 랜덤 모델 네트워크 (Degree) ----------
+
+fig, ax = plt.subplots(1, 3, figsize = (18,5))
+
+# ---------- ER ----------
+
+er_degree_list = [d for G in [generator
+
+
+
+
+
+
 
 
