@@ -68,7 +68,6 @@ class CentralityCalculator :
       
     except nx.NetworkXNoPath : 
       # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 closeness_centrality 내장 함수를 사용합니다')
       return nx.closeness_centrality(self.G)
 
     for n in self.G.nodes() :
@@ -87,7 +86,6 @@ class CentralityCalculator :
           
         except KeyError :
           # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-          print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 closeness_centrality 내장 함수를 사용합니다')
           return nx.closeness_centrality(self.G)
 
       c_cen[n] = reachable_count / dist_sum
@@ -109,7 +107,6 @@ class CentralityCalculator :
       
     except nx.NetworkXNoPath :
       # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-      print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 harmonic_centrality 내장 함수를 사용합니다')
       return nx.harmonic_centrality(self.G)
 
     for n in self.G.nodes() :
@@ -126,7 +123,6 @@ class CentralityCalculator :
           
         except KeyError :
           # shortest_path 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-          print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 harmonic_centrality 내장 함수를 사용합니다')
           return nx.harmonic_centrality(self.G)
 
         if dist > 0 :
@@ -160,7 +156,6 @@ class CentralityCalculator :
           
         except nx.NetworkXNoPath :
           # all_shortest_paths 내장 함수 사용에 있어 disconnected network 발생 시 networkx 내장 함수 사용으로 안전하게 처리
-          print('[경고] Disconnected network가 발생하였습니다. 안전한 작동을 위해 networkx의 betweenness_centrality 내장 함수를 사용합니다')
           return nx.betweenness_centrality(self.G)
 
         if not paths :
