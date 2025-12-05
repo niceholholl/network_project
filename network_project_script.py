@@ -27,7 +27,7 @@ from network_tool_pkg.analysis.random_nets_generator import RandomNetGenerator
 # 🚨 원본 네트워크 로드 (load_network_from_file 함수를 통해 data를 network 형태로 변경 ~ data_loader_script.py 참조)
 # G_original = load_network_from_file(FILE_PATH)
 
-# 테스트 및 예시를 위해 karate club network의 데이터를 G_original에 할당
+# 테스트 및 예시를 위해 karate club network의 데이터를 G_original에 할당 (미사용 시 주석 설정)
 G_original = nx.karate_club_graph()
 
 # ---------- 데이터 전처리 실행 ----------
