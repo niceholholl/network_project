@@ -22,11 +22,11 @@ def load_network_from_file(file_path) :
       # ---------- 노드 이름 변경 ----------
       
       if node_a not in node_dict :
-        node_dict[node_a] = 'household{}'.format(idx)
+        node_dict[node_a] = 'household{:04d}'.format(idx)
         idx += 1
 
       if node_b not in node_dict :
-        node_dict[node_b] = 'household{}'.format(idx)
+        node_dict[node_b] = 'household{:04d}'.format(idx)
         idx += 1
 
       new_a = node_dict[node_a]
