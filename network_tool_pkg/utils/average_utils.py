@@ -11,14 +11,24 @@ def ensemble_average(results_list) :
   if not results_list :
     raise ValueError('ensemble_average 함수의 입력이 비어있습니다. 시뮬레이션 결과가 없습니다.')
 
-  # ---------- 리스트 내부의 딕셔너리를 Numpy 배열로 변환 ---------- 
+  # ---------- 리스트 내부의 딕셔너리를 정렬 ---------- 
 
   try :
-    values_array = np.array([list(dict(sorted(result.items())).values()) for result in results_list])
+    sorted_keys = sorted(result_list[0].key())
 
   except Exception as e :
-    raise RuntimeError('Numpy 배열로 변환하는 데 실패하였습니다. 오류 : {}'.format(e))
-  
-  # ---------- Numpy 배열 평균 계산 (노드 및 지표별 평균) ----------
+    raise RuntimeError('[ensemble_average] 정렬 과정에서 오류가 발생하였습니다. 오류 : {}'.format(e))
 
-  return np.mean(values_array, axis = 0)
+  # ---------- None 제거 후 평균 ---------- 
+
+  averaged_values = []
+
+  for key in sorted_keys :
+    vals = [result[key] for result in results_list if result[key] is not None]
+
+    if len(vals) == 0 :
+      averaged_values.append(None)
+    else : 
+      averaged_values.append(float(np.mean(vals)))
+
+  return averaged_values
