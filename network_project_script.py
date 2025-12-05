@@ -135,19 +135,19 @@ for i in range(NUM_SIMULATIONS) :
   try :
     er_global_list.append(calculate_global(G_er))
   except ValueError :
-    print('[경고] {}번째 ER 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    print('[경고] {}/{}번째 ER 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i, NUM_SIMULATIONS))
     er_global_list.append({'CC': nx.average_clustering(G_er), 'APL': None, 'DIAM': None})
 
   try :
     cf_global_list.append(calculate_global(G_cf))
   except ValueError :
-    print('[경고] {}번째 Configuration 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    print('[경고] {}/{}번째 Configuration 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i, NUM_SIMULATIONS))
     cf_global_list.append({'CC': nx.average_clustering(G_cf), 'APL': None, 'DIAM': None})
 
   try :
     cl_global_list.append(calculate_global(G_cl))
   except ValueError :
-    print('[경고] {}번째 Chung-Lu 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i))
+    print('[경고] {}/{}번째 Chung-Lu 그래프가 diconnected 입니다. 평균 경로 길이와 지름은 None으로 대체합니다.'.format(i, NUM_SIMULATIONS))
     cl_global_list.append({'CC': nx.average_clustering(G_cl), 'APL': None, 'DIAM': None})
 
 print('----- {}회 앙상블 시뮬레이션 완료 -----'.format(NUM_SIMULATIONS))
