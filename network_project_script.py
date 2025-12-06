@@ -140,7 +140,7 @@ for i in range(NUM_SIMULATIONS) :
   cf_global_list.append(calculate_global(G_cf))
   cl_global_list.append(calculate_global(G_cl))
 
-  print('[ensemble] {}/{} 완료'.format(i, NUM_SIMULATIONS)
+  print('[ensemble] {}/{} 완료'.format(i, NUM_SIMULATIONS))
 
 print('----- {}회 앙상블 시뮬레이션 완료 -----'.format(NUM_SIMULATIONS))
 print('----- 3단계 : 원본 분포 계산 및 무작위 앙상블 생성이 완료되었습니다 -----')
