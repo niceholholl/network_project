@@ -6,27 +6,25 @@ def ensemble_average(results_list) :
   # ---------- 입력 유효성 및 리스트 형태 확인 (예외 처리) ----------
 
   if not isinstance(results_list, list) :
-    raise TypeError('ensemble_average 함수의 입력은 리스트 형태여야 합니다.')
+    raise TypeError('[ensemble_average] 함수의 입력은 리스트 형태여야 합니다.')
 
   if not results_list :
-    raise ValueError('ensemble_average 함수의 입력이 비어있습니다. 시뮬레이션 결과가 없습니다.')
+    raise ValueError('[ensemble_average] 함수의 입력이 비어있습니다. 시뮬레이션 결과가 없습니다.')
 
-  # ---------- 딕셔너리 유효성 확인 (예외 처리) ----------
-  
-  first_valid = None
-  
+  # ---------- 시각화 과정에서의 통일성 유지를 위해 리스트 내부에서 등장한 모든 key들의 union 생성 (예외 처리) ----------
+
+  all_keys = set()
+
   for item in results_list :
-    
     if isinstance(item, dict) :
-      first_valid = item
-      break
+      all_keys.update(item.keys())
 
-  if first_valid is None :
-    raise ValueError('[ensemble_average] 정렬 과정에서 오류가 발생하였습니다.')
+  if not all_keys :
+    raise ValueError('[ensemble_average] 유효한 key가 없습니다. 모든 결과가 비어있습니다.')
 
   # ---------- 리스트 내부의 딕셔너리를 정렬 ----------
 
-  sorted_keys = sorted(first_valid.keys())
+  sorted_keys = sorted(all_keys)
 
   # ----------  Key 값 추출 및 평균 (None 및 NaN 제거) ---------- 
 
@@ -51,7 +49,7 @@ def ensemble_average(results_list) :
           valid_vals.append(value)
     
     if len(valid_vals) == 0 :
-      averaged_values.append(None)
+      averaged_values.append(np.nan)
     else :
       averaged_values.append(float(np.mean(valid_vals)))
 
