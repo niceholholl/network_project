@@ -227,7 +227,7 @@ cd network_project
 
 #
 
-### (3) Google Drive 데이터 사용(선택)
+### (3) Google Drive 데이터 사용 및 작업 디렉토리 설정(선택)
 **데이터 파일을 Google Drive에 저장한 경우**
 ```
 from google.colab import drive
@@ -236,6 +236,11 @@ drive.mount('/content/drive')
 FILE_PATH = '/content/drive/MyDrive/data/friendship/6'
 ```
 
+```
+import os
+os.chdir("/content/network_project") 
+os.getcwd()       
+```
 #
 
 ### (4) 분석 스크립트 실행
