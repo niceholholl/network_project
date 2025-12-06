@@ -23,14 +23,14 @@ from data_loader_script import load_network_from_file
 # ====================================================================
 
 # 🚨 파일 로드 경로 (Google Drive 경로의 Collab 환경 가정, 사용 시 주석 해제)
-# FILE_PATH = '/content/drive/MyDrive/data/friendship/6'
+FILE_PATH = '/content/drive/MyDrive/data/friendship/6'
 # FILE_PATH = 'C:/network_pj/network_project/data/friendship/6'
 
 # 🚨 원본 네트워크 로드 (load_network_from_file 함수를 통해 data를 network 형태로 변경 ~ data_loader_script.py 참조)
-# G_original = load_network_from_file(FILE_PATH)
+G_original = load_network_from_file(FILE_PATH)
 
 # 테스트 및 예시를 위해 karate club network의 데이터를 G_original에 할당 (미사용 시 주석 설정)
-G_original = nx.karate_club_graph()
+# G_original = nx.karate_club_graph()
 
 # ---------- 데이터 전처리 실행 ----------
 
