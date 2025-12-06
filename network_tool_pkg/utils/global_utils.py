@@ -1,4 +1,5 @@
 import networkx as nx
+import numpy as np
 
 # LCC 상태 진단을 위해 해당 모듈을 불러옴
 from network_tool_pkg.analysis.centrality_generator import CentralityCalculator
@@ -32,7 +33,7 @@ def calculate_global(G) :
     raise TypeError('입력한 네트워크의 형태가 올바르지 않습니다. networkx.Graph 형태로 입력하십시오.')
 
   if G.number_of_nodes() == 0:
-    return {'CC' : None, 'APL' : None, 'DIAM' : None}
+    return {'CC' : np.nan, 'APL' : np.nan, 'DIAM' : np.nan}
 
   # ---------- 전역 지표 생성 : CC ----------
 
@@ -51,10 +52,10 @@ def calculate_global(G) :
   G_lcc = get_largest_connected_component(G)
 
   if G_lcc.number_of_nodes() <= 1 :
-    return {"CC": cc, "APL": None, "DIAM": None}
+    return {"CC": cc, "APL": np.nan, "DIAM": np.nan}
 
   if G_lcc.number_of_edges() == 0 :
-    return {"CC": cc, "APL": None, "DIAM": None}
+    return {"CC": cc, "APL": np.nan, "DIAM": np.nan}
 
   apl = nx.average_shortest_path_length(G_lcc)
   diam = nx.diameter(G_lcc)
