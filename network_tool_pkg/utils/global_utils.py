@@ -2,7 +2,6 @@ import networkx as nx
 import numpy as np
 
 # LCC 상태 진단을 위해 해당 모듈을 불러옴
-from network_tool_pkg.analysis.centrality_generator import CentralityCalculator
 from network_tool_pkg.analysis.random_nets_generator import RandomNetGenerator
 
 # -------------------- 주어진 그래프에서 가장 큰 연결 구성요소 (LCC) 추출하여 반환 ---------------
