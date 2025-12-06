@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 # -------------------- Degree 비교 플롯을 위한 함수 --------------------
 def plot_degree_hist(ax, original, model, model_name, bar_alpha = 0.35, original_color = 'blue', model_color = 'red') :
 
-  # 1. 🌟 FIX: max(original)이 실패할 경우를 대비하여 0보다 큰지 확인
+  # max(original)이 실패할 경우를 대비하여 0보다 큰지 확인
   if not original:
       return # 데이터가 없으면 함수 종료
 
-  # 2. Histogram 계산 (Y축 데이터)
+  # Histogram 계산 (Y축 데이터)
   bins = range(max(original) + 2)
   original_hist = np.histogram(original, bins = bins, density = True)[0]
   
@@ -34,10 +34,9 @@ def plot_degree_hist(ax, original, model, model_name, bar_alpha = 0.35, original
   # ax.axvline(x=0, color='grey', linewidth=1.5, linestyle='--')
 
 # -------------------- Degree 평균 히스토그램 계산을 위한 함수 --------------------
-def average_hist(degree_lists, fixed_max_degree) : 
+def average_hist(degree_lists, fixed_max_degree) :
     
-    # 🌟 수정: bins 범위를 앙상블의 max 대신, 고정된 fixed_max_degree를 사용하도록 강제
-    bins_range = range(fixed_max_degree + 2) 
+  # bins 범위를 고정된 fixed_max_degree를 사용하도록 강제
+  bins_range = range(fixed_max_degree + 2) 
 
-    return np.mean([np.histogram(degree_list, bins = bins_range, density = True)[0] 
-                    for degree_list in degree_lists], axis = 0)
+  return np.mean([np.histogram(degree_list, bins = bins_range, density = True)[0] for degree_list in degree_lists], axis = 0)
