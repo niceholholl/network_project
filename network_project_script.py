@@ -218,10 +218,15 @@ print('----- Degree Histogram 시각화가 완료되었습니다 -----')
 
 fig, ax = plt.subplots(figsize = (9, 5))
 
-ax.plot(nodes_sorted, original_btw_sorted, label = 'Original', color = 'black', linewidth = 2)
-ax.plot(nodes_sorted, avg_er_btw, label = 'ER', color = 'blue', linewidth = 2)
-ax.plot(nodes_sorted, avg_cf_btw, label = 'Configuration', color = 'red', linewidth = 2)
-ax.plot(nodes_sorted, avg_cl_btw, label = 'Chung-Lu', color = 'green', linewidth = 2)
+ax.plot(nodes_sorted, original_btw_sorted, label = 'Original', color = 'black', linewidth = 2.2, linestyle='-')
+ax.plot(nodes_sorted, avg_er_btw, label = 'ER', color = 'blue', linewidth = 2, alpha = 0.85, linestyle=':')
+ax.plot(nodes_sorted, avg_cf_btw, label = 'Configuration', color = 'red', linewidth = 2, alpha = 0.85, linestyle='--')
+ax.plot(nodes_sorted, avg_cl_btw, label = 'Chung-Lu', color = 'green', linewidth = 2, alpha = 0.85, linestyle='-.')
+
+step = max(1, len(nodes_sorted) // 10)
+ax.set_xticks(nodes_sorted[::step])
+ax.set_xticklabels(nodes_sorted[::step], rotation = 45)
+ax.tick_params(axis = 'x', labelsize=8)
 
 ax.set_title('Betweenness Centrality Comparison (ensemble = {})'.format(NUM_SIMULATIONS))
 ax.set_xlabel('Node ID')
@@ -240,10 +245,15 @@ print('----- Betweenness Centrality 시각화가 완료되었습니다 -----')
 
 fig, ax = plt.subplots(figsize = (9, 5))
 
-ax.plot(nodes_sorted, original_cls_sorted, label = 'Original', color = 'black', linewidth = 2)
-ax.plot(nodes_sorted, avg_er_cls, label = 'ER', color = 'blue', linewidth = 2)
-ax.plot(nodes_sorted, avg_cf_cls, label = 'Configuration', color = 'red', linewidth = 2)
-ax.plot(nodes_sorted, avg_cl_cls, label = 'Chung-Lu', color = 'green', linewidth = 2)
+ax.plot(nodes_sorted, original_cls_sorted, label = 'Original', color = 'black', linewidth = 2.2, linestyle='-')
+ax.plot(nodes_sorted, avg_er_cls, label = 'ER', color = 'blue', linewidth = 2, alpha = 0.85, linestyle=':')
+ax.plot(nodes_sorted, avg_cf_cls, label = 'Configuration', color = 'red', linewidth = 2, alpha = 0.85, linestyle='--')
+ax.plot(nodes_sorted, avg_cl_cls, label = 'Chung-Lu', color = 'green', linewidth = 2, alpha = 0.85, linestyle='-.')
+
+step = max(1, len(nodes_sorted) // 10)
+ax.set_xticks(nodes_sorted[::step])
+ax.set_xticklabels(nodes_sorted[::step], rotation = 45)
+ax.tick_params(axis = 'x', labelsize = 8)
 
 ax.set_title('Closeness Centrality Comparison (ensemble = {})'.format(NUM_SIMULATIONS))
 ax.set_xlabel('Node ID')
@@ -279,7 +289,7 @@ for i, metric in enumerate(metric_names) :
 
   for j, (x,y) in enumerate(zip(x_pos, y_vals)) :
     ax[i].scatter(x, y, color = colors[j], s = 120)
-    ax[i].text(x, y, '{:.2f}'.format(y), ha = 'center', va = 'center', fontsize = 6, color = 'white')
+    ax[i].text(x, y, '{:.2f}'.format(y), ha = 'center', va = 'center', fontsize = 6, color = 'yellow')
 
   ax[i].set_xticks(x_pos)
   ax[i].set_xticklabels(models, rotation = 20)
