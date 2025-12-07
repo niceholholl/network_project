@@ -296,7 +296,7 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
 ### 🔹 Global Metrics
 
 <p align="center">
-  <img src="./assets/closeness_compare.png" width="600" alt="클로즈니스 비교 결과" />
+  <img src="assets/Global_compare final.pdf" width="600" alt="클로즈니스 비교 결과" />
 </p>
 
 - **Clustering Coefficient (CC)** :
