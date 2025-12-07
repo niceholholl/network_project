@@ -271,7 +271,7 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
 - **Configuration 모델**은 degree를 그대로 보존하므로 가장 정확함.
 - **Chung-Lu 모델**은 기대 차수 기반으로 Configuration과 유사한 형태 재현.
 
-→ **결론**: 원본 네트워크는 ER 모델보다 Configuration, Chung-Lu 모델과 구조적으로 더 유사함.
+→ **결론**: 원본 네트워크는 ER 모델보다 Configuration, Chung-Lu 모델과 구조적으로 더 유사함.```
 
 #
 
@@ -281,13 +281,13 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   
 - **원본 네트워크**: 히스토그램에서 $0.20$ 및 $0.40$ 근처에 뚜렷한 아웃라이어 막대가 존재하며, 이는 정보 흐름을 통제하는 핵심 병목(Bottleneck) 노드가 존재함을 의미함. (노드 ID별 비교에서도 Original은 랜덤 모델 대비 훨씬 높은 피크를 보임.)
 
-→ **결론**: 랜덤 모델은 원본 네트워크가 가진 구조적 불균일성과 계층적 통제 구조(Bottleneck)를 재현하지 못했다.```
+→ **결론**: 랜덤 모델은 원본 네트워크가 가진 구조적 불균일성과 계층적 통제 구조(Bottleneck)를 재현하지 못함.```
 
 ### 🔹 Closeness Centrality
 - **ER 모델**은 $\mathbf{0.3}$ 근처에 매우 좁고 높은 피크를 형성하며, 모든 노드의 접근성이 유사해지는 비현실적인 균일성을 보임.
 - **원본 네트워크**: ER 대비 분포가 훨씬 넓게 퍼져 접근성의 이질성이 큼.
 
-→ **결론**: 모든 랜덤 모델은 원본 네트워크의 복잡하고 계층적인 Centrality 구조를 재현하지 못함.
+→ **결론**: 모든 랜덤 모델은 원본 네트워크의 복잡하고 계층적인 Centrality 구조를 재현하지 못함.```
 
 ### 🔹 Global Metrics
 - **Clustering Coefficient (CC)** :
@@ -298,8 +298,10 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   - 의미: 모든 모델이 **Small-World 특징**을 포착하여, APL은 구조적 차이를 구별하는 강력한 지표가 아니었다.
 - **Diameter** :
   - 결과: 원본 Diameter($\approx \mathbf{5.00}$)는 ER 모델 Diameter($\approx \mathbf{4.11}$)보다 길게 나타난다.
-    
-→ **결론**: 원본 네트워크는 강한 지역적 뭉침(높은 CC)을 가지며, Centrality 구조가 무작위 모델과 근본적으로 다르다.
+  -
+
+→ **결론**: 원본 네트워크는 강한 지역적 뭉침(높은 CC)을 가지며, Centrality 구조가 무작위 모델과 근본적으로 다르다.```
+
 ---
 
 # ⭐️ 결론 ⭐️
