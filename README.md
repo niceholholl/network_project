@@ -271,25 +271,11 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   <img src="./assets/Degree_compare_final.jpg" width="700" alt="Degree 비교 결과" />
 </p>
 
-- **ER 모델**은 완전 무작위 분포(Poisson 형태)로, 원본과 매우 다름.
-- **Configuration 모델**은 degree를 그대로 보존하므로 가장 정확함.
-- **Chung-Lu 모델**은 기대 차수 기반으로 Configuration과 유사한 형태 재현.
+- **ER 모델**은 완전 무작위 분포(Poisson 형태)로, 원본과 매우 다른 분포를 보임.
+- **Configuration 모델**은 degree sequence를 그대로 보존하므로 원본과 가장 정확히 일치함.
+- **Chung-Lu 모델**은 기대 차수 기반으로 Configuration과 유사한 형태의 분포를 재현.
 
-→ **결론**: 원본 네트워크는 ER 모델보다 Configuration, Chung-Lu 모델과 구조적으로 더 유사함.```
-
-#
-
-### 🔹 Betweenness
-<p align="center">
-  <img src="./assets/Betweenness_compare_final.jpg" width="700" alt="betweenness 비교 결과" />
-</p>
-
-- **랜덤 모델 (ER/CF/CL)**: $C_B \approx 0$ 부근에 극단적으로 집중된 피크만 보여주며, 이는 중개 노드의 역할을 생성하는 데 실패했음을 의미함.
-
-  
-- **원본 네트워크**: 히스토그램에서 $0.20$ 및 $0.40$ 근처에 뚜렷한 아웃라이어 막대가 존재하며, 이는 정보 흐름을 통제하는 핵심 병목(Bottleneck) 노드가 존재함을 의미함. (노드 ID별 비교에서도 Original은 랜덤 모델 대비 훨씬 높은 피크를 보임.)
-
-→ **결론**: 랜덤 모델은 원본 네트워크가 가진 구조적 불균일성과 계층적 통제 구조(Bottleneck)를 재현하지 못함.
+→ **결론**: 원본 네트워크는 ER 모델보다 Configuration, Chung-Lu 모델과 구조적으로 훨씬 더 유사함.
 
 #
 
@@ -299,10 +285,28 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   <img src="./assets/Closeness_compare_final.jpg" width="700" alt="closeness 비교 결과" />
 </p>
 
-- **ER 모델**은 $\mathbf{0.3}$ 근처에 매우 좁고 높은 피크를 형성하며, 모든 노드의 접근성이 유사해지는 비현실적인 균일성을 보임.
-- **원본 네트워크**: ER 대비 분포가 훨씬 넓게 퍼져 접근성의 이질성이 큼.
+- **ER 모델**은 $\mathbf{0.3}$ 근처에 매우 좁고 균일한 피크를 형성하며, 모든 노드가 거의 동일한 접근성을 갖는 비현실적인 구조를 생성함.
+- **Configuration / Chung-Lu 모델**은 평균적인 접근성 수준에서는 원본과 비교적 유사한 분표를 형성함.
 
-→ **결론**: 모든 랜덤 모델은 원본 네트워크의 복잡하고 계층적인 Centrality 구조를 재현하지 못함.
+- **원본 네트워크**는 ER 대비 분포가 훨씬 넓게 퍼져 접근성의 이질성이 큼.
+
+→ **결론** : ER 모델은 Closeness Centrality 구조를 재현하지 못하며 Configuration, Chung-Lu 모델은 평균적인 구조는 재현하나 원본 네트워크 고유의 접근성 계층 구조까지 완전히 반영하지 못함.
+
+#
+
+### 🔹 Betweenness Centrality
+
+<p align="center">
+  <img src="./assets/Betweenness_compare_final.jpg" width="700" alt="betweenness 비교 결과" />
+</p>
+
+- **ER 모델**은 $\mathbf{0}$ 부근에서 거의 평탄한 분포를 보여, 핵심 중개자 구조를 전혀 재현하지 못함.
+
+- **Configuration / Chung-Lu 모델**은 전체적인 분포 형태는 원본과 유사하나, 원본에서 관측되는 극단적으로 큰 피크 값들은 완화되어 나타남.
+  
+- **원본 네트워크**에서는 $0.08$ 및 $0.14$ 근처에서 뚜렷한 피크가 존재하며, 이는 정보 흐름을 통제하는 핵심 병목 노드의 존재를 의미함.
+
+→ **결론** : 랜덤 모델은 원본 네트워크가 가진 강한 중개자 구조와 계층적 통제 구조를 완벽하게 재현하지는 못함. 특히 ER 모델은 Betweenness Centrality 구조를 완전히 재현하지 못함. (노드 ID별 비교에서도 Original은 랜덤 모델 대비 훨씬 높은 피크를 보임.)
 
 #
 
@@ -312,37 +316,52 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   <img src="./assets/Global_compare_final.jpg" width="700" alt="Global Metrics 비교 결과" />
 </p>
 
-- **Clustering Coefficient (CC)** :
-  - 의미: Original이 ER보다 2배 이상 높은 군집도를 보임. 우간다 공동체 네트워크에는 **무작위 우연으로는 설명되지 않는 강한 지역적 뭉침(파벌)**이 존재함.
-- **Average Path Length (APL)** :
-  - 의미: 모든 모델이 APL($\approx \mathbf{2.50}$)로 매우 근접하며, **Small-World 특징**을 포착함. APL은 구조적 차이를 구별하는 데 약한 지표임.
-- **Diameter** :
-  - 의미: ER 모델은 비현실적으로 조밀한 네트워크(지름이 짧음)를 생성한 반면, Config/Chung-Lu 모델은 원본의 최대 크기 구조를 성공적으로 재현함
+- **Clustering Coefficient (CC)**
+  - 의미 : Original이 ER보다 2배 이상 높은 군집도를 보임. 우간다 공동체 네트워크에는 **무작위 우연으로는 설명되지 않는 강한 지역적 뭉침**이 존재함. (마을 단위의 네트워크)
+- **Average Path Length (APL)** 
+  - 의미 : 모든 모델이 APL($\approx \mathbf{2.50}$)로 매우 근접하며, **Small-world 특징**을 포착함. APL은 구조적 차이를 구별하는 데 약한 지표임.
+- **Diamete (DIAM)r** 
+  - 의미 : ER 모델은 비현실적으로 조밀한 네트워크(지름이 짧음)를 생성한 반면, Config/Chung-Lu 모델은 원본의 최대 크기 구조를 성공적으로 재현함
 
-
-→ **결론**: 원본 네트워크는 강한 지역적 뭉침(높은 CC)을 가지며, Centrality 구조가 무작위 모델과 근본적으로 다르다.```
+→ **결론** : 원본 네트워크에서 small-world 구조는 랜덤 모델과 유사하지만, ER 모델과의 비교에 있어서 강한 지역적 군집 구조는 현실 네트워크 고유의 사회적 특성임을 확인 가능.
 
 ---
 
-# ⭐️ 결론 : 우간다 네트워크 구조 검증⭐️
+# ⭐️ 결론 ⭐️
 
-### ❌ 단순 무작위 모델의 실패 (ER)
-- Degree Distribution, Global Metrics 분석 결과, ER 모델은 연결패턴과 Clustering Coefficient($\text{CC} \approx 0.07$)를 재현하는 데 실패
-- ER 모델은 원본 네트워크를 비현실적으로 조밀하게 만들어 (Diameter $\approx 4.11$) 구조를 왜곡
-### ✔ degree 기반 모델의 한계 (CF/CL)
-- Configuration, Chung-Lu 모델은 차수 분포 및 **최대 크기(Diameter $\approx 5.0$ )**를 성공적으로 모방
-- 그러나 Betweenness, Closeness Centrality 분포 비교에서, 이 모델들은 원본 네트워크의 중개노드, 중앙허브를 확실하게 재현하지 못하고 $C_B \approx 0$에 집중됨
-
-### 🔍구조적 특징
-- 강한 지역적 뭉침: 무작위 모델보다 높은 클러스터링 계수 ($\approx 0.15$)를 가짐.
-- 통제 계층 존재: Betweenness Centrality에서 **핵심 중개 노드(Bottleneck)**가 명확히 존재함.
-- 높은 이질성: Closeness Centrality 분포가 넓어 접근성 면에서 노드 간의 다양성이 큼.
+### ❌ 단순 무작위 모델의 한계 (ER)
+- Degree Distribution 분석 결과, ER 모델은 **Poisson 분포 형태**로 원본 네트워크의 비균일한 차수 구조를 전혀 재현하지 못함.
+- Global Metrics 분석에서의 Clustering Coefficient 역시 **원본($\approx 0.15$) 대비 매우 낮은 값 ($\approx 0.07$)** 을 보여, **우간다 공동체 네트워크에 존재하는 강한 지역적 뭉침(마을 단위 응집 구조)** 를 설명하는 데 실패함.
+- 또한 ER 모델은 Diameter가 $\approx 4.11$로 원본($\approx 5.00$) 대비 작게 형성되어, 원본 네트워크보다 **비현실적으로 조밀한 구조**를 생성함.
+→ 결론적으로 ER 모델은 우간다 네트워크의 구조적 특성을 전반적으로 재현하지 못하는 부적절한 기준 모델임이 명확히 확인됨.
 
 #
 
-**따라서 이 네트워크는**
-**공동체의 사회적 규칙·중심 인물·지역적 구조가 결합된 현실적인 사회 네트워크 형태**이며,
-**단순 확률 모델 이상의 고차 메커니즘**을 반영한다고 볼 수 있다.
+### ✔ Degree 기반 모델의 한계 (Configuration / Chung-Lu)
+- Configuration 모델과 Chung-Lu 모델은 **원본 네트워크의 Degree Distribution을 유사하게 재현**하며, 네트워크의 Diameter ($\approx 5.0$ ) 또한 원본과 거의 동일한 값을 보여 **전역적 거리 구조를 성공적으로 모방**함.
+- Average Path Length 역시 모든 모델이 $\approx 2.50$ 전후로 매우 유사하여, **Small-world 거리 구조 자체는 랜덤 모델로도 충분히 설명 가능함**을 확인함.
+- 단, Centrality 비교에 있어서 원본 네트워크에 존재하는 **극단적으로 큰 핵심 중개 노드의 일부가 해당 랜덤 모델에서는 완화되거나 일부 소실**되어 나타남.
+→ 결론적으로 Degree 구조만 맞춘 랜덤 모델로는 현실 네트워크의 ‘중개자·허브’ 중심성 구조까지는 완전히 설명할 수 없음.
+
+#
+
+### 🔍 우간다 네트워크의 핵심 구조적 특징
+- ✅ **강한 지역적 뭉침**
+  - 높은 Clustering Coefficient ($\approx 0.15$)
+  - 단순 무작위 연결이 아닌 마을 단위의 사회적 결속 구조 존재
+- ✅ **중개 계층의 존재**
+  - Betweenness Centrality에서 특정 노드가 네트워크 상에서 정보 흐름을 강하게 통제.
+- ✅ **접근성의 이질성**
+  - Closeness Centrality 분포가 넓어 접근성 면에서 노드 간의 다양성이 큼.
+- ✅ **Small-world 특성**
+  - Average path Length $\approx 2.5$, Diameter $\approx 5$ 정도로 빠른 정보 전달 구조 유지
+ 
+#
+
+따라서 우간다 공동체 네트워크는 단순 확률 기반 랜덤 모델(ER)로는 전혀 설명되지 않으며, Degree 기반 랜덤 모델(Configuration / Chung-Lu)은 차수 분포와 전역적 거리 구조는 상당 부분 재현 가능하나, 중개 노드나 지역적 응집 구조와 같은 핵심 사회 메커니즘까지는 완벽하게 재현하지 못한다.
+
+즉, 우간다 공동체 네트워크는 **공동체의 사회적 규칙·중심 인물·지역적 구조가 결합된 현실적인 사회 네트워크 형태**이며,
+**단순 확률 모델을 넘어서는 고차 사회적 메커니즘**을 반영하는 구조임을 본 연구를 통해 검증되었다.
 
 
 본 프로젝트에서 구축한 패키지화된 분석 도구(network_tool_pkg)는 이러한 구조적 특징을 재현하는 새로운 네트워크 모델의 유효성을 비교·검증하는 데 **재사용 가능한 분석 플랫폼**으로 활용될 수 있다.
