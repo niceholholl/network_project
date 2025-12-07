@@ -275,19 +275,29 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
 
 #
 
-### 🔹 Betweenness & Closeness Centrality
-- 
-- 
-→ 
+### 🔹 Betweenness
+- **ER, Configuration, Chung-Lu** 모델 모두 $C_B \approx 0$ 부근에 극단적으로 집중된 피크만 보여주며, 이는 중개 노드의 역할을 생성하는 데 실패했음을 의미한다.
+
+  
+→ 히스토그램을 보면 $0.20$ 및 $0.40$ 근처에 뚜렷한 아웃라이어 막대가 존재하며, 이는 정보 흐름을 통제하는 핵심 병목(Bottleneck) 노드가 존재함을 의미한다.노드 ID별 비교에서도 Original (회색 선)은 랜덤 모델 대비 훨씬 높은 피크를 여러 노드에서 보여주며, 중심성의 불균일성(Heterogeneity)이 높다.
 
 #
 
-### 🔹 Global Metrics
-- **Clustering Coefficient (CC)** : 
-- **Average Path Length (APL)** : 
-- **Diameter** : 
-→ 
+### 🔹 Closeness Centrality
+- **ER 모델**은 $\mathbf{0.3}$ 근처에 매우 좁고 높은 피크를 형성하며, 이는 모든 노드의 접근성이 유사해지는 비현실적인 균일성을 보임.
+→ **결론적으로, 모든 랜덤 모델은 원본 네트워크의 복잡하고 계층적인 Centrality 구조를 재현하지 못함.**
 
+### 🔹 Global Metrics
+- **Clustering Coefficient (CC)** :
+  - 결과: 원본($\approx \mathbf{0.15}$)은 ER 모델($\approx \mathbf{0.07}$)에 비해 약 2배 높은 군집화를 보임
+  - 의미: 우간다 공동체 네트워크에는 **무작위 우연으로는 설명되지 않는 강한 지역적 뭉침(파벌)**이 존재함.
+- **Average Path Length (APL)** :
+  - 결과: 원본 APL($\approx \mathbf{2.49}$)은 ER 모델 APL($\approx \mathbf{2.47}$)과 매우 유사하게 측정됨
+  - 의미: 무작위 모델은 지역적 뭉침은 실패했지만, 글로벌 효율성(경로 길이) 면에서는 원본 네트워크와 큰 차이를 보이지 않음.
+- **Diameter** :
+  - 결과: 원본 Diameter($\approx \mathbf{5.00}$)는 ER 모델 Diameter($\approx \mathbf{4.11}$)보다 길게 나타난다.
+    
+→ 원본 네트워크는 강한 지역적 뭉침(높은 CC)을 가지며, Centrality 구조가 무작위 모델과 근본적으로 다르다.
 ---
 
 # ⭐️ 결론 ⭐️
