@@ -284,7 +284,7 @@ ER, Configuration, Chung-Lu 모델과 비교 분석하였다.
   <img src="./assets/Closeness_compare_final.jpg" width="700" alt="closeness 비교 결과" />
 </p>
 
-- **ER 모델**은 $\mathbf{0.3}$ 근처에 매우 좁고 균일한 피크를 형성하며, 모든 노드가 거의 동일한 접근성을 갖는 비현실적인 구조를 생성함.
+- **ER 모델**은 $\mathbf{0.4}$ 근처에 매우 좁고 균일한 피크를 형성하며, 모든 노드가 거의 동일한 접근성을 갖는 비현실적인 구조를 생성함.
 - **Configuration / Chung-Lu 모델**은 평균적인 접근성 수준에서는 원본과 비교적 유사한 분포를 형성함.
 
 - **원본 네트워크**는 ER 대비 분포가 훨씬 넓게 퍼져 접근성의 이질성이 큼.
